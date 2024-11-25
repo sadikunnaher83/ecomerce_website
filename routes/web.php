@@ -1,11 +1,22 @@
 <?php
 
+use App\Http\Controllers\BackendController;
+use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
 });
+
+
+Route::get('/frontends', [FrontendController::class, 'index']);
+Route::get('/adminh', [BackendController::class, 'layout']);
+Route::get('/users', [UserController::class, 'index']);
+
+
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
