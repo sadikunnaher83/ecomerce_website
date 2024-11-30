@@ -12,7 +12,10 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+    // echo "Category index";
+    $categories = Category::paginate(10);
+    //  return view('categories.index', compact('categories'));
+    return view('categories.index', ['categories' => $categories]);
     }
 
     /**
@@ -20,7 +23,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+       return view('categories.create');
     }
 
     /**
@@ -28,7 +31,23 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      $request->validate([
+        'name' => 'required',
+        'slug' => 'required',
+        'description' => 'required',
+        'image' => 'nullable',
+        'status' => 'nullable',
+      ]);
+
+      Category::create([
+        'name' => $request->name,
+        'slug' => $request->slug,
+        'description' => $request->description,
+        'image' => $request->image,
+        'status' => $request->status
+      ]);
+
+      return redirect('/categories')->with('success', 'Category created successfully.');
     }
 
     /**
@@ -36,7 +55,7 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        //
+        return view('categories.show', compact('category'));
     }
 
     /**
@@ -44,7 +63,7 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        //
+     return view('categories.edit', compact('category'));
     }
 
     /**
@@ -52,7 +71,23 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'slug' => 'required',
+            'description' => 'required',
+            'image' => 'nullable',
+            'status' => 'nullable',
+          ]);
+
+         $category->update([
+            'name' => $request->name,
+            'slug' => $request->slug,
+            'description' => $request->description,
+            'image' => $request->image,
+            'status' => $request->status
+          ]);
+
+          return redirect('/categories')->with('success', 'Category updated successfully.');
     }
 
     /**
@@ -60,6 +95,7 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        $category->delete();
+        return redirect('/categories')->with('success', 'Category deleted successfully.');
     }
 }

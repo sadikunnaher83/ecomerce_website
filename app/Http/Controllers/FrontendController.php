@@ -12,7 +12,8 @@ class FrontendController extends Controller
      */
     public function index()
     {
-        echo "Frontend";
+
+        // echo "Frontend";
     }
 
     /**

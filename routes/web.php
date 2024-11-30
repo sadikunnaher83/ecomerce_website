@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BackendController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
@@ -12,8 +13,11 @@ Route::get('/', function () {
 
 
 Route::get('/frontends', [FrontendController::class, 'index']);
-Route::get('/adminh', [BackendController::class, 'layout']);
+
+Route::resource('/categories', CategoryController::class);
+
 Route::get('/users', [UserController::class, 'index']);
+Route::get('/adminh', [BackendController::class, 'layout']);
 
 
 
